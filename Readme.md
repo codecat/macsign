@@ -24,8 +24,8 @@ $ macsign Test.component Test.vst3
 ```
 
 You can currently sign 2 types of paths:
-* Installers as `.pkg` which uses the `keychain.identity.application`
-* Anything else such as `.app`, `.component`, `.vst3`, etc.
+* Installers as `.pkg` which uses `keychain.identity.installer`
+* Anything else such as `.app`, `.component`, `.vst3`, etc, which uses `keychain.identity.application`
 
 ## Configuring keychain profile
 If you don't have a keychain profile configured yet, run this:
