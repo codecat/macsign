@@ -148,7 +148,7 @@ installer = "Developer ID Installer: "
 		}
 
 		// Verify notarization
-		output, err = exec.Command("codesign", "--test-requirement=\"=notarized\"", "--verify", path).CombinedOutput()
+		output, err = exec.Command("codesign", "-R", "=notarized", "--verify", path).CombinedOutput()
 		if err != nil {
 			log.Error("Final verification failed", "path", path, "err", err, "output", string(output))
 			os.Exit(1)
