@@ -147,13 +147,16 @@ installer = "Developer ID Installer: "
 			os.Exit(1)
 		}
 
-		// Verify notarization (if needed)
-		if !strings.HasSuffix(path, ".pkg") {
+		// Verify notarization
+		if strings.HasSuffix(path, ".pkg") {
+			output, err = exec.Command("spctl", "--assess", "--ignore-cache", "--type", "install", path).CombinedOutput()
+		} else {
 			output, err = exec.Command("codesign", "-R", "=notarized", "--verify", path).CombinedOutput()
-			if err != nil {
-				log.Error("Final verification failed", "path", path, "err", err, "output", string(output))
-				os.Exit(1)
-			}
+		}
+
+		if err != nil {
+			log.Error("Final verification failed", "path", path, "err", err, "output", string(output))
+			os.Exit(1)
 		}
 	}
 }
